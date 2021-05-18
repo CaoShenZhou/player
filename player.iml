@@ -1,6 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <module org.jetbrains.idea.maven.project.MavenProjectsManager.isMavenModule="true" type="JAVA_MODULE" version="4">
   <component name="FacetManager">
+    <facet type="web" name="Web">
+      <configuration>
+        <webroots />
+        <sourceRoots>
+          <root url="file://$MODULE_DIR$/src/main/java" />
+          <root url="file://$MODULE_DIR$/src/main/resources" />
+        </sourceRoots>
+      </configuration>
+    </facet>
     <facet type="Spring" name="Spring">
       <configuration />
     </facet>
@@ -19,9 +28,6 @@
     <orderEntry type="library" name="Maven: org.springframework.boot:spring-boot-starter:2.4.5" level="project" />
     <orderEntry type="library" name="Maven: org.springframework.boot:spring-boot:2.4.5" level="project" />
     <orderEntry type="library" name="Maven: org.springframework:spring-context:5.3.6" level="project" />
-    <orderEntry type="library" name="Maven: org.springframework:spring-aop:5.3.6" level="project" />
-    <orderEntry type="library" name="Maven: org.springframework:spring-beans:5.3.6" level="project" />
-    <orderEntry type="library" name="Maven: org.springframework:spring-expression:5.3.6" level="project" />
     <orderEntry type="library" name="Maven: org.springframework.boot:spring-boot-autoconfigure:2.4.5" level="project" />
     <orderEntry type="library" name="Maven: org.springframework.boot:spring-boot-starter-logging:2.4.5" level="project" />
     <orderEntry type="library" name="Maven: ch.qos.logback:logback-classic:1.2.3" level="project" />
@@ -33,7 +39,23 @@
     <orderEntry type="library" name="Maven: org.springframework:spring-core:5.3.6" level="project" />
     <orderEntry type="library" name="Maven: org.springframework:spring-jcl:5.3.6" level="project" />
     <orderEntry type="library" name="Maven: org.yaml:snakeyaml:1.27" level="project" />
-    <orderEntry type="library" name="Maven: org.projectlombok:lombok:1.18.20" level="project" />
+    <orderEntry type="library" name="Maven: org.springframework.boot:spring-boot-starter-web:2.4.5" level="project" />
+    <orderEntry type="library" name="Maven: org.springframework.boot:spring-boot-starter-json:2.4.5" level="project" />
+    <orderEntry type="library" name="Maven: com.fasterxml.jackson.core:jackson-databind:2.11.4" level="project" />
+    <orderEntry type="library" name="Maven: com.fasterxml.jackson.core:jackson-annotations:2.11.4" level="project" />
+    <orderEntry type="library" name="Maven: com.fasterxml.jackson.core:jackson-core:2.11.4" level="project" />
+    <orderEntry type="library" name="Maven: com.fasterxml.jackson.datatype:jackson-datatype-jdk8:2.11.4" level="project" />
+    <orderEntry type="library" name="Maven: com.fasterxml.jackson.datatype:jackson-datatype-jsr310:2.11.4" level="project" />
+    <orderEntry type="library" name="Maven: com.fasterxml.jackson.module:jackson-module-parameter-names:2.11.4" level="project" />
+    <orderEntry type="library" name="Maven: org.springframework.boot:spring-boot-starter-tomcat:2.4.5" level="project" />
+    <orderEntry type="library" name="Maven: org.apache.tomcat.embed:tomcat-embed-core:9.0.45" level="project" />
+    <orderEntry type="library" name="Maven: org.glassfish:jakarta.el:3.0.3" level="project" />
+    <orderEntry type="library" name="Maven: org.apache.tomcat.embed:tomcat-embed-websocket:9.0.45" level="project" />
+    <orderEntry type="library" name="Maven: org.springframework:spring-web:5.3.6" level="project" />
+    <orderEntry type="library" name="Maven: org.springframework:spring-beans:5.3.6" level="project" />
+    <orderEntry type="library" name="Maven: org.springframework:spring-webmvc:5.3.6" level="project" />
+    <orderEntry type="library" name="Maven: org.springframework:spring-aop:5.3.6" level="project" />
+    <orderEntry type="library" name="Maven: org.springframework:spring-expression:5.3.6" level="project" />
     <orderEntry type="library" scope="TEST" name="Maven: org.springframework.boot:spring-boot-starter-test:2.4.5" level="project" />
     <orderEntry type="library" scope="TEST" name="Maven: org.springframework.boot:spring-boot-test:2.4.5" level="project" />
     <orderEntry type="library" scope="TEST" name="Maven: org.springframework.boot:spring-boot-test-autoconfigure:2.4.5" level="project" />
@@ -63,5 +85,19 @@
     <orderEntry type="library" scope="TEST" name="Maven: com.vaadin.external.google:android-json:0.0.20131108.vaadin1" level="project" />
     <orderEntry type="library" scope="TEST" name="Maven: org.springframework:spring-test:5.3.6" level="project" />
     <orderEntry type="library" scope="TEST" name="Maven: org.xmlunit:xmlunit-core:2.7.0" level="project" />
+    <orderEntry type="library" name="Maven: com.baomidou:mybatis-plus-boot-starter:3.4.2" level="project" />
+    <orderEntry type="library" name="Maven: com.baomidou:mybatis-plus:3.4.2" level="project" />
+    <orderEntry type="library" name="Maven: com.baomidou:mybatis-plus-extension:3.4.2" level="project" />
+    <orderEntry type="library" name="Maven: com.baomidou:mybatis-plus-core:3.4.2" level="project" />
+    <orderEntry type="library" name="Maven: com.baomidou:mybatis-plus-annotation:3.4.2" level="project" />
+    <orderEntry type="library" name="Maven: com.github.jsqlparser:jsqlparser:4.0" level="project" />
+    <orderEntry type="library" name="Maven: org.mybatis:mybatis:3.5.6" level="project" />
+    <orderEntry type="library" name="Maven: org.mybatis:mybatis-spring:2.0.5" level="project" />
+    <orderEntry type="library" name="Maven: org.springframework.boot:spring-boot-starter-jdbc:2.4.5" level="project" />
+    <orderEntry type="library" name="Maven: com.zaxxer:HikariCP:3.4.5" level="project" />
+    <orderEntry type="library" name="Maven: org.springframework:spring-jdbc:5.3.6" level="project" />
+    <orderEntry type="library" name="Maven: org.springframework:spring-tx:5.3.6" level="project" />
+    <orderEntry type="library" name="Maven: org.xerial:sqlite-jdbc:3.34.0" level="project" />
+    <orderEntry type="library" name="Maven: org.projectlombok:lombok:1.18.20" level="project" />
   </component>
 </module>

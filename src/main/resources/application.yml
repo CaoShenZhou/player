@@ -1,0 +1,15 @@
+mybatis-plus:
+  mapper-locations: classpath:mapper/*Mapper.xml
+  type-aliases-package: com.caozei.player.entity
+server:
+  port: 8090
+spring:
+  add-mappings: false
+  datasource:
+    url: jdbc:sqlite:player.sqlite
+    driver-class-name: org.sqlite.JDBC
+  jackson:
+    time-zone: GMT+8
+    date-format: yyyy-MM-dd HH:mm:ss
+  mvc:
+    throw-exception-if-no-handler-found: true
