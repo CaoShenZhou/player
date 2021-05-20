@@ -1,9 +1,9 @@
-package com.caozei.player.service.impl;
+package com.shenzhou.player.service.impl;
 
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
-import com.caozei.player.entity.Video;
-import com.caozei.player.mapper.VideoMapper;
-import com.caozei.player.service.IVideoService;
+import com.shenzhou.player.entity.Video;
+import com.shenzhou.player.mapper.VideoMapper;
+import com.shenzhou.player.service.IVideoService;
 import org.springframework.stereotype.Service;
 
 /**

@@ -1,8 +1,8 @@
-package com.caozei.player.controller;
+package com.shenzhou.player.controller;
 
 
-import com.caozei.player.entity.Video;
-import com.caozei.player.service.IVideoService;
+import com.shenzhou.player.entity.Video;
+import com.shenzhou.player.service.IVideoService;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;

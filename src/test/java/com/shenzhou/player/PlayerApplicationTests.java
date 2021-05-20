@@ -1,4 +1,4 @@
-package com.caozei.player;
+package com.shenzhou.player;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;

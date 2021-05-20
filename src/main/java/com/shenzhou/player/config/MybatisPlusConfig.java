@@ -1,4 +1,4 @@
-package com.caozei.player.config;
+package com.shenzhou.player.config;
 
 import com.baomidou.mybatisplus.annotation.DbType;
 import com.baomidou.mybatisplus.extension.plugins.MybatisPlusInterceptor;
@@ -15,7 +15,7 @@ import org.springframework.transaction.annotation.EnableTransactionManagement;
  **/
 @EnableTransactionManagement
 @Configuration
-@MapperScan("com.caozei.player.mapper")
+@MapperScan("com.shenzhou.player.mapper")
 public class MybatisPlusConfig {
 
     @Bean

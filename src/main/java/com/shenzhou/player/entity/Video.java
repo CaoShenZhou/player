@@ -1,4 +1,4 @@
-package com.caozei.player.entity;
+package com.shenzhou.player.entity;
 
 import com.baomidou.mybatisplus.annotation.IdType;
 import com.baomidou.mybatisplus.annotation.TableField;

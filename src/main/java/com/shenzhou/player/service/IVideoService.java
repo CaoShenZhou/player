@@ -1,7 +1,7 @@
-package com.caozei.player.service;
+package com.shenzhou.player.service;
 
 import com.baomidou.mybatisplus.extension.service.IService;
-import com.caozei.player.entity.Video;
+import com.shenzhou.player.entity.Video;
 
 /**
  * Video 服务类

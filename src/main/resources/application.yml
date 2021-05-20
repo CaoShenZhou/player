@@ -1,6 +1,6 @@
 mybatis-plus:
   mapper-locations: classpath:mapper/*Mapper.xml
-  type-aliases-package: com.caozei.player.entity
+  type-aliases-package: com.shenzhou.player.entity
 server:
   port: 8090
 spring:

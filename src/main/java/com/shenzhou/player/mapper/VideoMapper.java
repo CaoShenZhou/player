@@ -1,7 +1,7 @@
-package com.caozei.player.mapper;
+package com.shenzhou.player.mapper;
 
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
-import com.caozei.player.entity.Video;
+import com.shenzhou.player.entity.Video;
 
 /**
  * Video Mapper 接口
