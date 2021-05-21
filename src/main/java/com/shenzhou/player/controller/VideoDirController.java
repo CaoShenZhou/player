@@ -2,6 +2,8 @@ package com.shenzhou.player.controller;
 
 
 import com.shenzhou.player.entity.Video;
+import com.shenzhou.player.entity.VideoDir;
+import com.shenzhou.player.service.IVideoDirService;
 import com.shenzhou.player.service.IVideoService;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -22,11 +24,11 @@ import java.util.List;
 public class VideoDirController {
 
     @Resource
-    private IVideoService iVideoService;
+    private IVideoDirService iVideoDirService;
 
     @GetMapping("/list")
-    public List<Video> getList() {
-        return iVideoService.list();
+    public List<VideoDir> getList() {
+        return iVideoDirService.list();
     }
 
 }
