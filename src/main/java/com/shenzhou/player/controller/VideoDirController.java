@@ -1,14 +1,12 @@
 package com.shenzhou.player.controller;
 
 
-import com.shenzhou.player.entity.Video;
+import com.shenzhou.player.dto.AddVideoDirDTO;
 import com.shenzhou.player.entity.VideoDir;
 import com.shenzhou.player.service.IVideoDirService;
-import com.shenzhou.player.service.IVideoService;
+import org.springframework.beans.BeanUtils;
 import org.springframework.validation.annotation.Validated;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
 import java.util.List;
@@ -29,6 +27,14 @@ public class VideoDirController {
     @GetMapping("/list")
     public List<VideoDir> getList() {
         return iVideoDirService.list();
+    }
+
+    @PostMapping("/add")
+    public Boolean add(
+            @Validated @RequestBody AddVideoDirDTO dto) {
+        VideoDir videoDir = new VideoDir();
+        BeanUtils.copyProperties(dto, videoDir);
+        return iVideoDirService.save(videoDir);
     }
 
 }

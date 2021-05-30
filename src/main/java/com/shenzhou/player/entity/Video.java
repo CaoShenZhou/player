@@ -30,7 +30,7 @@ public class Video implements Serializable {
     private String format;
 
     @TableField("duration")
-    private String duration;
+    private Long duration;
 
     @TableField("resolution")
     private String resolution;
