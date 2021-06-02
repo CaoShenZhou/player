@@ -9,6 +9,7 @@ import com.shenzhou.player.util.VideoUtil;
 import org.apache.commons.codec.digest.DigestUtils;
 import org.apache.commons.io.FileUtils;
 import org.apache.commons.io.FilenameUtils;
+import org.apache.commons.lang3.RandomStringUtils;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.util.StringUtils;
@@ -53,16 +54,24 @@ public class VideoController {
 
     @Test
     public void aaa() throws IOException, EncoderException {
-        String path = "D:\\迅雷下载";
+        String path = "E:\\电影";
+        String str = RandomStringUtils.randomAlphanumeric(9);
         List<File> fileList = (List<File>) FileUtils.listFiles(new File(path), null, false);
         for (File file : fileList) {
-            Video video = new Video();
-            video.setName(file.getName());
-            String md5 = DigestUtils.md5Hex(new FileInputStream(file.getAbsolutePath()));
-            video.setMd5(md5);
-            String format = FilenameUtils.getExtension(file.getName());
-            video.setFormat(format);
-            VideoUtil.getInfo(file.getAbsolutePath());
+            String extension = FilenameUtils.getExtension(file.getName());
+            String newName = RandomStringUtils.randomAlphanumeric(10) + "." + extension;
+            String newPath = file.getParent() + File.separator + newName;
+            // 如果改名成功
+            boolean renameResult = file.renameTo(new File(newPath));
+            if (renameResult) {
+                Video video = new Video();
+                video.setName(newName);
+                String md5 = DigestUtils.md5Hex(new FileInputStream(newPath));
+                video.setMd5(md5);
+                video.setFormat(extension);
+                VideoUtil.getInfo(newPath, video);
+                System.out.println(video.toString());
+            }
             break;
         }
 

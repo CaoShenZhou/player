@@ -22,13 +22,11 @@ public class VideoUtil {
      * @param path
      * @throws EncoderException
      */
-    public static void getInfo(String path) throws EncoderException {
+    public static void getInfo(String path,Video video) throws EncoderException {
         MultimediaObject multimediaObject = new MultimediaObject(new File(path));
         MultimediaInfo info = multimediaObject.getInfo();
-        Video video = new Video();
         VideoSize size = info.getVideo().getSize();
         video.setResolution(size.getWidth() + "×" + size.getHeight());
         video.setDuration(info.getDuration());
-        System.out.println(video);
     }
 }

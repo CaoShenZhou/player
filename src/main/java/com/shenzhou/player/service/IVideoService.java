@@ -9,5 +9,4 @@ import com.shenzhou.player.entity.Video;
  * @author Mr.Cao
  */
 public interface IVideoService extends IService<Video> {
-
 }
