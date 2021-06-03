@@ -16,4 +16,4 @@ spring:
     static-path-pattern: /data/**
   web:
     resources:
-      static-locations: file:D:/迅雷下载
+      static-locations: file:E:\电影\已归档

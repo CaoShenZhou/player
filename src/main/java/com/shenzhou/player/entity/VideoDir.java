@@ -17,7 +17,7 @@ public class VideoDir implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
-    @TableId(value = "uuid", type = IdType.ASSIGN_UUID)
+    @TableId(value = "uuid")
     private String uuid;
 
     @TableField("name")

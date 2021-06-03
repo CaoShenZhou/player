@@ -1,12 +1,12 @@
 package com.shenzhou.player.entity;
 
-import com.baomidou.mybatisplus.annotation.IdType;
+import com.baomidou.mybatisplus.annotation.FieldFill;
 import com.baomidou.mybatisplus.annotation.TableField;
-import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
 import lombok.Data;
 
 import java.io.Serializable;
+import java.util.Date;
 
 /**
  * @author Mr.Cao
@@ -17,8 +17,8 @@ public class Video implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
-    @TableId(value = "uuid", type = IdType.ASSIGN_UUID)
-    private String uuid;
+    @TableField("id")
+    private String id;
 
     @TableField("name")
     private String name;
@@ -29,10 +29,19 @@ public class Video implements Serializable {
     @TableField("format")
     private String format;
 
+    @TableField("size")
+    private Long size;
+
     @TableField("duration")
     private Long duration;
 
     @TableField("resolution")
     private String resolution;
+
+    @TableField(value = "create_time", fill = FieldFill.INSERT)
+    private Date createTime;
+
+    @TableField(value = "update_time", fill = FieldFill.INSERT_UPDATE)
+    private Date updateTime;
 
 }

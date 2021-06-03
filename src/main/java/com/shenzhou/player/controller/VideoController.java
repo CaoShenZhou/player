@@ -1,9 +1,13 @@
 package com.shenzhou.player.controller;
 
 
+import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
+import com.baomidou.mybatisplus.core.conditions.update.LambdaUpdateWrapper;
 import com.shenzhou.player.config.NonStaticResourceHttpRequestHandler;
 import com.shenzhou.player.entity.Video;
+import com.shenzhou.player.entity.VideoLabel;
 import com.shenzhou.player.service.IVideoDirService;
+import com.shenzhou.player.service.IVideoLabelService;
 import com.shenzhou.player.service.IVideoService;
 import com.shenzhou.player.util.VideoUtil;
 import org.apache.commons.codec.digest.DigestUtils;
@@ -12,6 +16,7 @@ import org.apache.commons.io.FilenameUtils;
 import org.apache.commons.lang3.RandomStringUtils;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.util.StringUtils;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -42,10 +47,14 @@ import java.util.*;
 @Validated
 @RestController
 @RequestMapping("/video")
+@SpringBootTest
 public class VideoController {
 
     @Resource
     private IVideoService iVideoService;
+
+    @Resource
+    private IVideoLabelService iVideoLabelService;
 
     @GetMapping("/list")
     public List<Video> getList() {
@@ -53,26 +62,49 @@ public class VideoController {
     }
 
     @Test
-    public void aaa() throws IOException, EncoderException {
-        String path = "E:\\电影";
-        String str = RandomStringUtils.randomAlphanumeric(9);
+    public void bb() {
+        System.out.println(RandomStringUtils.randomAlphanumeric(10));
+    }
+
+    @Test
+    public void aaa() {
+        String path = "E:\\电影\\中字";
         List<File> fileList = (List<File>) FileUtils.listFiles(new File(path), null, false);
-        for (File file : fileList) {
+        for (int i = 0; i < fileList.size(); i++) {
+            System.out.println("总文件个数:" + fileList.size() + ",正在处理第" + (i + 1) + "个文件.");
+            File file = fileList.get(i);
             String extension = FilenameUtils.getExtension(file.getName());
-            String newName = RandomStringUtils.randomAlphanumeric(10) + "." + extension;
-            String newPath = file.getParent() + File.separator + newName;
-            // 如果改名成功
-            boolean renameResult = file.renameTo(new File(newPath));
-            if (renameResult) {
-                Video video = new Video();
-                video.setName(newName);
-                String md5 = DigestUtils.md5Hex(new FileInputStream(newPath));
-                video.setMd5(md5);
-                video.setFormat(extension);
-                VideoUtil.getInfo(newPath, video);
-                System.out.println(video.toString());
+            Video video = new Video();
+            if (iVideoService.add(video)) {
+                String id = video.getId();
+                System.out.println(id);
+                String newName = id + "." + extension;
+                String newPath = file.getParent() + File.separator + newName;
+                // 如果改名成功
+                boolean renameResult = file.renameTo(new File(newPath));
+                if (renameResult) {
+                    video.setName(newName);
+                    String md5 = "";
+                    try {
+                        md5 = DigestUtils.md5Hex(new FileInputStream(newPath));
+                        video.setMd5(md5);
+                        video.setFormat(extension);
+                        video.setSize(new File(newPath).length());
+                        boolean getVideoInfoResult = VideoUtil.getInfo(newPath, video);
+                        // 如果获取视频成功
+                        if (getVideoInfoResult) {
+                            iVideoService.updateById(video);
+                            VideoLabel videoLabel = new VideoLabel();
+                            videoLabel.setVideoId(id);
+                            videoLabel.setLabelId("PJJh0yom3Z");
+                            iVideoLabelService.add(videoLabel);
+                        }
+                    } catch (IOException e) {
+                        System.out.println("文件:" + newPath + ",获取MD5值失败");
+                        e.printStackTrace();
+                    }
+                }
             }
-            break;
         }
 
     }
