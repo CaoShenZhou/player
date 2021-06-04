@@ -1,7 +1,7 @@
 package com.shenzhou.player.controller;
 
 
-import com.shenzhou.player.dto.AddVideoDirDTO;
+import com.shenzhou.player.dto.videodir.AddVideoDirDTO;
 import com.shenzhou.player.entity.VideoDir;
 import com.shenzhou.player.service.IVideoDirService;
 import org.springframework.beans.BeanUtils;

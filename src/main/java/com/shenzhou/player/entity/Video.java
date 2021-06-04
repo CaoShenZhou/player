@@ -23,6 +23,9 @@ public class Video implements Serializable {
     @TableField("name")
     private String name;
 
+    @TableField("is_like")
+    private Boolean like;
+
     @TableField("md5")
     private String md5;
 

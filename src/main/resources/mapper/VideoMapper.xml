@@ -6,6 +6,7 @@
     <resultMap id="BaseResultMap" type="com.shenzhou.player.entity.Video">
         <result column="id" property="id" />
         <result column="name" property="name" />
+        <result column="is_like" property="like" />
         <result column="md5" property="md5" />
         <result column="format" property="format" />
         <result column="size" property="size" />
@@ -17,7 +18,7 @@
 
     <!-- 通用查询结果列 -->
     <sql id="Base_Column_List">
-        id, name, md5, format, size, duration, resolution, create_time, update_time
+        id, name, is_like, md5, format, size, duration, resolution, create_time, update_time
     </sql>
 
 </mapper>

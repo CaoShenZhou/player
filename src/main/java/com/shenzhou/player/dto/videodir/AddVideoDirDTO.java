@@ -1,4 +1,4 @@
-package com.shenzhou.player.dto;
+package com.shenzhou.player.dto.videodir;
 
 import lombok.Data;
 import org.hibernate.validator.constraints.Length;
