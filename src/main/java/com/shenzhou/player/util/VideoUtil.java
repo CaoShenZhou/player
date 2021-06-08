@@ -1,7 +1,6 @@
 package com.shenzhou.player.util;
 
 import com.shenzhou.player.entity.Video;
-import org.springframework.web.multipart.MultipartFile;
 import ws.schild.jave.EncoderException;
 import ws.schild.jave.MultimediaInfo;
 import ws.schild.jave.MultimediaObject;
@@ -24,7 +23,7 @@ public class VideoUtil {
      */
     public static boolean getInfo(String path, Video video) {
         MultimediaObject multimediaObject = new MultimediaObject(new File(path));
-        MultimediaInfo info = null;
+        MultimediaInfo info;
         try {
             info = multimediaObject.getInfo();
         } catch (EncoderException e) {

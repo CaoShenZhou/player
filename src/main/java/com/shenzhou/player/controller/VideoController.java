@@ -1,9 +1,13 @@
 package com.shenzhou.player.controller;
 
 
+import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.conditions.update.LambdaUpdateWrapper;
 import com.shenzhou.player.dto.video.UpdateVideoLikeDTO;
+import com.shenzhou.player.entity.Label;
 import com.shenzhou.player.entity.Video;
+import com.shenzhou.player.entity.VideoLabel;
+import com.shenzhou.player.service.ILabelService;
 import com.shenzhou.player.service.IVideoLabelService;
 import com.shenzhou.player.service.IVideoService;
 import com.shenzhou.player.util.VideoUtil;
@@ -39,6 +43,9 @@ public class VideoController {
 
     @Resource
     private IVideoService iVideoService;
+
+    @Resource
+    private ILabelService iLabelService;
 
     @Resource
     private IVideoLabelService iVideoLabelService;
@@ -111,8 +118,20 @@ public class VideoController {
     }
 
     @GetMapping("/{id}")
-    public Video getVideoById(@PathVariable("id") String id) {
-        return iVideoService.getById(id);
+    public Map<String, Object> getVideoById(@PathVariable("id") String id) {
+        Video video = iVideoService.getById(id);
+
+        LambdaQueryWrapper<VideoLabel> videoLabelLambdaQueryWrapper = new LambdaQueryWrapper<>();
+        videoLabelLambdaQueryWrapper.eq(VideoLabel::getVideoId, id);
+        List<VideoLabel> videoLabelList = iVideoLabelService.list(videoLabelLambdaQueryWrapper);
+
+        List<Label> labelList = iLabelService.list();
+
+        Map<String, Object> data = new HashMap<>();
+        data.put("video", video);
+        data.put("labelList", labelList);
+        data.put("videoLabelList", videoLabelList);
+        return data;
     }
 
 
