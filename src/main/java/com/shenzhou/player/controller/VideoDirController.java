@@ -12,10 +12,8 @@ import javax.annotation.Resource;
 import java.util.List;
 
 /**
- * SQL主机 前端控制器
- *
  * @author Mr.Cao
- */
+ **/
 @Validated
 @RestController
 @RequestMapping("/video-dir")

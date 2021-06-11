@@ -3,6 +3,7 @@ package com.shenzhou.player.dto.video;
 import lombok.Data;
 import org.hibernate.validator.constraints.Length;
 
+import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 
 /**
@@ -11,6 +12,7 @@ import javax.validation.constraints.NotNull;
 @Data
 public class UpdateVideoLikeDTO {
 
+    @NotBlank(message = "id 不可为空;")
     @Length(min = 10, max = 10, message = "id 长度应为{max}位;")
     private String id;
 

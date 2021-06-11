@@ -2,6 +2,7 @@ package com.shenzhou.player.entity;
 
 import com.baomidou.mybatisplus.annotation.FieldFill;
 import com.baomidou.mybatisplus.annotation.TableField;
+import com.baomidou.mybatisplus.annotation.TableId;
 import com.baomidou.mybatisplus.annotation.TableName;
 import lombok.Data;
 
@@ -17,7 +18,7 @@ public class Video implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
-    @TableField("id")
+    @TableId("id")
     private String id;
 
     @TableField("name")

@@ -16,7 +16,6 @@ import org.apache.commons.io.FileUtils;
 import org.apache.commons.io.FilenameUtils;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.BeanUtils;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
@@ -25,16 +24,12 @@ import java.io.FileInputStream;
 import java.io.IOException;
 
 import javax.annotation.Resource;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 import java.io.File;
 import java.util.*;
 
 /**
- * SQL主机 前端控制器
- *
  * @author Mr.Cao
- */
+ **/
 @Validated
 @RestController
 @RequestMapping("/video")
@@ -64,13 +59,14 @@ public class VideoController {
 
     @Test
     public void bb() {
-        LambdaUpdateWrapper<Video> updateWrapper = new LambdaUpdateWrapper<>();
-        updateWrapper.set(Video::getLike, false);
-        iVideoService.update(updateWrapper);
-        /*Video video = new Video();
-        video.setId("TShqQFqagU");
-        video.setLike(false);
-        iVideoService.updateById(video);*/
+        LambdaUpdateWrapper<Label> updateWrapper = new LambdaUpdateWrapper<>();
+        updateWrapper.set(Label::getUpdateTime, new Date())
+        .set(Label::getCreateTime, new Date());
+        iLabelService.update(updateWrapper);
+//        Video video = new Video();
+//        video.setId("TShqQFqagU");
+//        video.setLike(false);
+//        iVideoService.updateById(video);
 //        System.out.println(RandomStringUtils.randomAlphanumeric(10));
     }
 
@@ -133,6 +129,5 @@ public class VideoController {
         data.put("videoLabelList", videoLabelList);
         return data;
     }
-
 
 }

@@ -4,14 +4,16 @@
 
     <!-- 通用查询映射结果 -->
     <resultMap id="BaseResultMap" type="com.shenzhou.player.entity.VideoLabel">
-        <result column="id" property="id" />
-        <result column="video_id" property="videoId" />
-        <result column="label_id" property="labelId" />
+        <id column="id" property="id"/>
+        <result column="video_id" property="videoId"/>
+        <result column="label_id" property="labelId"/>
+        <result column="create_time" property="createTime"/>
+        <result column="update_time" property="updateTime"/>
     </resultMap>
 
     <!-- 通用查询结果列 -->
     <sql id="Base_Column_List">
-        id, video_id, label_id
+        id, video_id, label_id, create_time, update_time
     </sql>
 
 </mapper>
