@@ -14,6 +14,6 @@ spring:
   mvc:
     throw-exception-if-no-handler-found: true
     static-path-pattern: /data/**
-  web:
-    resources:
-      static-locations: file:E:\电影\已归档
+#  web:
+#    resources:
+#      static-locations: file:E:\电影\已归档

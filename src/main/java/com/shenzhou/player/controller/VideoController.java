@@ -3,6 +3,7 @@ package com.shenzhou.player.controller;
 
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.conditions.update.LambdaUpdateWrapper;
+import com.shenzhou.player.config.NonStaticResourceHttpRequestHandler;
 import com.shenzhou.player.dto.video.UpdateVideoLikeDTO;
 import com.shenzhou.player.entity.Label;
 import com.shenzhou.player.entity.Video;
@@ -14,6 +15,7 @@ import com.shenzhou.player.util.VideoUtil;
 import org.apache.commons.codec.digest.DigestUtils;
 import org.apache.commons.io.FileUtils;
 import org.apache.commons.io.FilenameUtils;
+import org.apache.commons.lang3.StringUtils;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.BeanUtils;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -24,8 +26,23 @@ import java.io.FileInputStream;
 import java.io.IOException;
 
 import javax.annotation.Resource;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import java.io.File;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.*;
+
+
+import org.apache.commons.lang3.StringUtils;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import java.nio.charset.StandardCharsets;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 
 /**
  * @author Mr.Cao
@@ -45,6 +62,9 @@ public class VideoController {
     @Resource
     private IVideoLabelService iVideoLabelService;
 
+    @Resource
+    private NonStaticResourceHttpRequestHandler nonStaticResourceHttpRequestHandler;
+
     @GetMapping("/list")
     public List<Video> getVideoList() {
         return iVideoService.list();
@@ -59,20 +79,12 @@ public class VideoController {
 
     @Test
     public void bb() {
-        LambdaUpdateWrapper<Label> updateWrapper = new LambdaUpdateWrapper<>();
-        updateWrapper.set(Label::getUpdateTime, new Date())
-        .set(Label::getCreateTime, new Date());
-        iLabelService.update(updateWrapper);
-//        Video video = new Video();
-//        video.setId("TShqQFqagU");
-//        video.setLike(false);
-//        iVideoService.updateById(video);
-//        System.out.println(RandomStringUtils.randomAlphanumeric(10));
+        System.out.println(new File("F:\\电影\\在归档\\ri-chang-wan-nai-zi-18les-zhao-mei-mei-liao.mp4").getParent());
     }
 
     @Test
     public void aaa() {
-        String path = "E:\\电影";
+        String path = "F:/电影/在归档";
         List<File> fileList = (List<File>) FileUtils.listFiles(new File(path), null, false);
         for (int i = 0; i < fileList.size(); i++) {
             System.out.println("总文件个数:" + fileList.size() + ",正在处理第" + (i + 1) + "个文件.");
@@ -83,7 +95,8 @@ public class VideoController {
                 String id = video.getId();
                 System.out.println(id);
                 String newName = id + "." + extension;
-                String newPath = file.getParent() + File.separator + newName;
+//                String newPath = file.getParent() + File.separator + newName;
+                String newPath = "F:/电影/好了/" + newName;
                 // 如果改名成功
                 boolean renameResult = file.renameTo(new File(newPath));
                 if (renameResult) {
@@ -94,6 +107,7 @@ public class VideoController {
                         video.setMd5(md5);
                         video.setFormat(extension);
                         video.setSize(new File(newPath).length());
+                        video.setLike(false);
                         boolean getVideoInfoResult = VideoUtil.getInfo(newPath, video);
                         // 如果获取视频成功
                         if (getVideoInfoResult) {
@@ -113,21 +127,71 @@ public class VideoController {
 
     }
 
+    //    @GetMapping("/{id}")
+//    public Map<String, Object> getVideoById(@PathVariable("id") String id) {
+//        Video video = iVideoService.getById(id);
+//        if (null != video) {
+//            LambdaQueryWrapper<VideoLabel> videoLabelLambdaQueryWrapper = new LambdaQueryWrapper<>();
+//            videoLabelLambdaQueryWrapper.eq(VideoLabel::getVideoId, id);
+//            List<VideoLabel> videoLabelList = iVideoLabelService.list(videoLabelLambdaQueryWrapper);
+//            List<Label> labelList = iLabelService.list();
+//            Map<String, Object> data = new HashMap<>();
+//            data.put("video", video);
+//            data.put("labelList", labelList);
+//            data.put("videoLabelList", videoLabelList);
+//            return data;
+//        }
+//        return null;
+//    }
+
     @GetMapping("/{id}")
-    public Map<String, Object> getVideoById(@PathVariable("id") String id) {
+    public String videoPreview(@PathVariable("id") String id, HttpServletRequest request, HttpServletResponse response) throws Exception {
         Video video = iVideoService.getById(id);
-
-        LambdaQueryWrapper<VideoLabel> videoLabelLambdaQueryWrapper = new LambdaQueryWrapper<>();
-        videoLabelLambdaQueryWrapper.eq(VideoLabel::getVideoId, id);
-        List<VideoLabel> videoLabelList = iVideoLabelService.list(videoLabelLambdaQueryWrapper);
-
-        List<Label> labelList = iLabelService.list();
-
-        Map<String, Object> data = new HashMap<>();
-        data.put("video", video);
-        data.put("labelList", labelList);
-        data.put("videoLabelList", videoLabelList);
-        return data;
+        if (null != video) {
+            Path filePath = Paths.get("H:/电影/已归档/" + video.getName());
+            if (Files.exists(filePath)) {
+                String mimeType = Files.probeContentType(filePath);
+                if (!StringUtils.isEmpty(mimeType)) {
+                    response.setContentType(mimeType);
+                }
+                request.setAttribute(NonStaticResourceHttpRequestHandler.ATTR_FILE, filePath);
+                nonStaticResourceHttpRequestHandler.handleRequest(request, response);
+            }
+        } else {
+//            response.setStatus(HttpServletResponse.SC_NOT_FOUND);
+            response.setStatus(HttpServletResponse.SC_ACCEPTED);
+            response.setCharacterEncoding(StandardCharsets.UTF_8.toString());
+        }
+        return "123";
     }
+
+
+    @DeleteMapping("/{id}")
+    public boolean delVideoById(@PathVariable("id") String id) {
+        Video video = iVideoService.getById(id);
+        if (null != video) {
+            String filePath = "H:/电影/已归档/" + video.getName();
+            try {
+                FileUtils.forceDelete(new File(filePath));
+                LambdaQueryWrapper<VideoLabel> videoLabelLambdaQueryWrapper = new LambdaQueryWrapper<>();
+                videoLabelLambdaQueryWrapper.eq(VideoLabel::getVideoId, id);
+                int videoLabelCount = iVideoLabelService.count(videoLabelLambdaQueryWrapper);
+                if (videoLabelCount > 0) {
+                    // 删除视频标签
+                    LambdaUpdateWrapper<VideoLabel> videoLabelLambdaUpdateWrapper = new LambdaUpdateWrapper<>();
+                    videoLabelLambdaUpdateWrapper.eq(VideoLabel::getVideoId, id);
+                    boolean delVideoLabelResult = iVideoLabelService.remove(videoLabelLambdaUpdateWrapper);
+                    if (!delVideoLabelResult) {
+                        return false;
+                    }
+                }
+                return iVideoService.removeById(id);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }
+        return false;
+    }
+
 
 }

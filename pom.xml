@@ -10,12 +10,14 @@
     </parent>
     <groupId>com.shenzhou</groupId>
     <artifactId>player</artifactId>
-    <version>0.0.1-SNAPSHOT</version>
+    <version>0.0.1</version>
     <name>player</name>
-    <description>Demo project for Spring Boot</description>
+    <description>播放器</description>
+
     <properties>
         <java.version>1.8</java.version>
     </properties>
+
     <dependencies>
         <dependency>
             <groupId>org.springframework.boot</groupId>

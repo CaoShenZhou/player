@@ -27,7 +27,6 @@ public class VideoLabelController {
     @Resource
     private IVideoLabelService iVideoLabelService;
 
-
     @PostMapping("/add")
     public boolean addVideoLabel(@Validated @RequestBody UpdateVideoLabelDTO dto) {
         VideoLabel videoLabel = new VideoLabel();
@@ -35,7 +34,7 @@ public class VideoLabelController {
         // 查询该标签是否已经存着
         LambdaQueryWrapper<VideoLabel> queryWrapper = new LambdaQueryWrapper<>();
         queryWrapper.eq(VideoLabel::getVideoId, videoLabel.getVideoId())
-                .eq(VideoLabel::getVideoId, videoLabel.getLabelId());
+                .eq(VideoLabel::getLabelId, videoLabel.getLabelId());
         if (iVideoLabelService.list(queryWrapper).size() == 0) {
             return iVideoLabelService.add(videoLabel);
         }
