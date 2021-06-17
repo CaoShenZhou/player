@@ -3,7 +3,6 @@ package com.shenzhou.player.controller;
 
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.conditions.update.LambdaUpdateWrapper;
-import com.shenzhou.player.config.NonStaticResourceHttpRequestHandler;
 import com.shenzhou.player.dto.video.UpdateVideoLikeDTO;
 import com.shenzhou.player.entity.Label;
 import com.shenzhou.player.entity.Video;
@@ -15,7 +14,6 @@ import com.shenzhou.player.util.VideoUtil;
 import org.apache.commons.codec.digest.DigestUtils;
 import org.apache.commons.io.FileUtils;
 import org.apache.commons.io.FilenameUtils;
-import org.apache.commons.lang3.StringUtils;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.BeanUtils;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -26,23 +24,8 @@ import java.io.FileInputStream;
 import java.io.IOException;
 
 import javax.annotation.Resource;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
 import java.io.File;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
 import java.util.*;
-
-
-import org.apache.commons.lang3.StringUtils;
-
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-import java.nio.charset.StandardCharsets;
-import java.nio.file.Files;
-import java.nio.file.Path;
-import java.nio.file.Paths;
 
 /**
  * @author Mr.Cao
@@ -61,9 +44,6 @@ public class VideoController {
 
     @Resource
     private IVideoLabelService iVideoLabelService;
-
-    @Resource
-    private NonStaticResourceHttpRequestHandler nonStaticResourceHttpRequestHandler;
 
     @GetMapping("/list")
     public List<Video> getVideoList() {
@@ -127,44 +107,22 @@ public class VideoController {
 
     }
 
-    //    @GetMapping("/{id}")
-//    public Map<String, Object> getVideoById(@PathVariable("id") String id) {
-//        Video video = iVideoService.getById(id);
-//        if (null != video) {
-//            LambdaQueryWrapper<VideoLabel> videoLabelLambdaQueryWrapper = new LambdaQueryWrapper<>();
-//            videoLabelLambdaQueryWrapper.eq(VideoLabel::getVideoId, id);
-//            List<VideoLabel> videoLabelList = iVideoLabelService.list(videoLabelLambdaQueryWrapper);
-//            List<Label> labelList = iLabelService.list();
-//            Map<String, Object> data = new HashMap<>();
-//            data.put("video", video);
-//            data.put("labelList", labelList);
-//            data.put("videoLabelList", videoLabelList);
-//            return data;
-//        }
-//        return null;
-//    }
-
     @GetMapping("/{id}")
-    public String videoPreview(@PathVariable("id") String id, HttpServletRequest request, HttpServletResponse response) throws Exception {
+    public Map<String, Object> getVideoById(@PathVariable("id") String id) {
         Video video = iVideoService.getById(id);
         if (null != video) {
-            Path filePath = Paths.get("H:/电影/已归档/" + video.getName());
-            if (Files.exists(filePath)) {
-                String mimeType = Files.probeContentType(filePath);
-                if (!StringUtils.isEmpty(mimeType)) {
-                    response.setContentType(mimeType);
-                }
-                request.setAttribute(NonStaticResourceHttpRequestHandler.ATTR_FILE, filePath);
-                nonStaticResourceHttpRequestHandler.handleRequest(request, response);
-            }
-        } else {
-//            response.setStatus(HttpServletResponse.SC_NOT_FOUND);
-            response.setStatus(HttpServletResponse.SC_ACCEPTED);
-            response.setCharacterEncoding(StandardCharsets.UTF_8.toString());
+            LambdaQueryWrapper<VideoLabel> videoLabelLambdaQueryWrapper = new LambdaQueryWrapper<>();
+            videoLabelLambdaQueryWrapper.eq(VideoLabel::getVideoId, id);
+            List<VideoLabel> videoLabelList = iVideoLabelService.list(videoLabelLambdaQueryWrapper);
+            List<Label> labelList = iLabelService.list();
+            Map<String, Object> data = new HashMap<>();
+            data.put("video", video);
+            data.put("labelList", labelList);
+            data.put("videoLabelList", videoLabelList);
+            return data;
         }
-        return "123";
+        return null;
     }
-
 
     @DeleteMapping("/{id}")
     public boolean delVideoById(@PathVariable("id") String id) {
