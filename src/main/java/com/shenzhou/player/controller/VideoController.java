@@ -58,11 +58,6 @@ public class VideoController {
     }
 
     @Test
-    public void bb() {
-        System.out.println(new File("F:\\电影\\在归档\\ri-chang-wan-nai-zi-18les-zhao-mei-mei-liao.mp4").getParent());
-    }
-
-    @Test
     public void aaa() {
         String path = "F:/电影/在归档";
         List<File> fileList = (List<File>) FileUtils.listFiles(new File(path), null, false);
