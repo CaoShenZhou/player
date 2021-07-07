@@ -16,4 +16,4 @@ spring:
     static-path-pattern: /data/**
   web:
     resources:
-      static-locations: file:H:\电影\已归档
+      static-locations: file:F:\电影\
