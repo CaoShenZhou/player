@@ -7,6 +7,9 @@ import com.shenzhou.player.service.IVideoLabelService;
 import org.apache.commons.lang3.RandomStringUtils;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+import java.util.Map;
+
 /**
  * VideoLabel 服务实现类
  *
@@ -24,6 +27,10 @@ public class VideoLabelServiceImpl extends ServiceImpl<VideoLabelMapper, VideoLa
                 return this.save(videoLabel);
             }
         }
+    }
+
+    public List<Map<String, Object>> countVideoLabel() {
+        return this.baseMapper.countVideoLabel();
     }
 
 }
