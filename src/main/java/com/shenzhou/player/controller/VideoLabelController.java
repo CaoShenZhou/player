@@ -7,6 +7,7 @@ import com.shenzhou.player.dto.videolabel.UpdateVideoLabelDTO;
 import com.shenzhou.player.entity.Video;
 import com.shenzhou.player.entity.VideoLabel;
 import com.shenzhou.player.service.IVideoLabelService;
+import com.shenzhou.player.vo.videolabel.VideoLabelCount;
 import org.springframework.beans.BeanUtils;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
@@ -51,7 +52,7 @@ public class VideoLabelController {
     }
 
     @GetMapping("/count")
-    public List<Map<String, Object>> getVideoLabelCount() {
+    public List<VideoLabelCount> getVideoLabelCount() {
         return iVideoLabelService.countVideoLabel();
     }
 }

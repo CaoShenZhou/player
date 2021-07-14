@@ -146,5 +146,11 @@ public class VideoController {
         return false;
     }
 
+    @GetMapping("/like-list")
+    public List<Video> getVideoLikeList() {
+        LambdaQueryWrapper<Video> lambdaQueryWrapper = new LambdaQueryWrapper<>();
+        lambdaQueryWrapper.eq(Video::getLike, true);
+        return iVideoService.list(lambdaQueryWrapper);
+    }
 
 }

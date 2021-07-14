@@ -4,6 +4,7 @@ import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.shenzhou.player.entity.VideoLabel;
 import com.shenzhou.player.mapper.VideoLabelMapper;
 import com.shenzhou.player.service.IVideoLabelService;
+import com.shenzhou.player.vo.videolabel.VideoLabelCount;
 import org.apache.commons.lang3.RandomStringUtils;
 import org.springframework.stereotype.Service;
 
@@ -29,7 +30,7 @@ public class VideoLabelServiceImpl extends ServiceImpl<VideoLabelMapper, VideoLa
         }
     }
 
-    public List<Map<String, Object>> countVideoLabel() {
+    public List<VideoLabelCount> countVideoLabel() {
         return this.baseMapper.countVideoLabel();
     }
 
